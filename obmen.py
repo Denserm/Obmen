@@ -4,10 +4,17 @@ from tkinter import *
 from tkinter import messagebox as mb
 from tkinter import ttk
 
-def udate_c_label(event):
+
+def udate_b_label(event):
+    code = b_combobox.get()
+    name = cur[code]
+    b_label.config(text=name)
+
+
+def udate_t_label(event):
     code = t_combobox.get()
     name = cur[code]
-    c_label.config(text=name)
+    t_label.config(text=name)
 
 
 def exchange():
@@ -54,15 +61,19 @@ window.geometry("360x300")
 Label(text="Базовая валюта").pack(padx=10, pady=10)
 b_combobox = ttk.Combobox(values=list(cur.keys()))
 b_combobox.pack(padx=10, pady=10)
+b_combobox.bind("<<ComboboxSelected>>", udate_b_label)
+
+b_label = ttk.Label()
+b_label.pack(padx=10, pady=10)
 
 Label(text="Целевая валюта").pack(padx=10, pady=10)
 # cur = ['RUB', 'EUR', 'GBP', 'JPY', 'CNY', 'KZT', 'UZS', 'CHF', 'AED', 'CAD']
 t_combobox = ttk.Combobox(values=list(cur.keys()))
 t_combobox.pack(padx=10, pady=10)
-t_combobox.bind("<<ComboboxSelected>>", udate_c_label)
+t_combobox.bind("<<ComboboxSelected>>", udate_t_label)
 
-c_label = ttk.Label()
-c_label.pack(padx=10, pady=10)
+t_label = ttk.Label()
+t_label.pack(padx=10, pady=10)
 
 Button(text="Получить курс обмена", command=exchange).pack(padx=10, pady=10)
 
